@@ -13,7 +13,8 @@ class TasksController < ApplicationController
   end
   
   def create
-    set_task
+    
+    @task = Task.new(task_params)
     
     if @task.save
       flash[:success] = "タスクが正常に追加されました"
@@ -52,10 +53,10 @@ class TasksController < ApplicationController
   
   private
   
-  #Strong Parameter
   
   def set_task
     @task = Task.find(params[:id])
+  end
   
   def task_params
     params.require(:task).permit(:content, :status)
